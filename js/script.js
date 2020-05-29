@@ -1,15 +1,15 @@
 const baseUrl = "https://www.mangaeden.com/api/";
 const mangaList = `${baseUrl}list/1/`;
 
-function fetchData() {
-  fetch(mangaList)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      const html = data.manga.slice(1238, 1247).map((mangaInfo) => {
-        return `
+
+fetch(mangaList)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+    const html = data.manga.slice(1238, 1247).map((mangaInfo) => {
+      return `
           <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card">
               <img class="image" src="https://cdn.mangaeden.com/mangasimg/${mangaInfo.im}" alt="${mangaInfo.t} cover photo" />
@@ -22,19 +22,15 @@ function fetchData() {
           </div>
       </div>
             `;
-      });
-
-      // JS to add META tag to HTML. It is to prevent a 403 issue when loading images. It does not work when 
-      // added directly to html, but trough JS it works. 
-      var meta = document.createElement('meta');
-      meta.name = "referrer";
-      meta.content = "www.mangaeden.com";
-      document.getElementsByTagName('head')[0].appendChild(meta);
-      document.querySelector(".results").innerHTML = html;
-    })
-    .catch((error) => {
-      console.log(error);
     });
-}
-
-fetchData();
+    // JS to try and solve the 403 error when loading pictures. my laptop gives 200 status after change
+    // but gaming pc still gives 403. Unsure what the problem might be. 
+    var meta = document.createElement('meta');
+    meta.name = "referrer";
+    meta.content = "www.mangaeden.com";
+    document.getElementsByTagName('head')[0].appendChild(meta);
+    document.querySelector(".results").innerHTML = html;
+  })
+  .catch((error) => {
+    console.log(error);
+  });
