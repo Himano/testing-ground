@@ -23,7 +23,13 @@ function fetchData() {
       </div>
             `;
       });
-      //.join("");
+
+      // JS to add META tag to HTML. It is to prevent a 403 issue when loading images. It does not work when 
+      // added directly to html, but trough JS it works. 
+      var meta = document.createElement('meta');
+      meta.name = "referrer";
+      meta.content = "www.mangaeden.com";
+      document.getElementsByTagName('head')[0].appendChild(meta);
       document.querySelector(".results").innerHTML = html;
     })
     .catch((error) => {
