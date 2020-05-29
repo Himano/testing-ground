@@ -8,7 +8,7 @@ fetch(mangaList)
   })
   .then((data) => {
     console.log(data);
-    const html = data.manga.slice(1238, 1247).map((mangaInfo) => {
+    const html = data.manga.slice(1229, 1238).map((mangaInfo) => {
       return `
           <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card">
@@ -23,11 +23,22 @@ fetch(mangaList)
       </div>
             `;
     });
-    // JS to try and solve the 403 error when loading pictures. my laptop gives 200 status after change
-    // but gaming pc still gives 403. Unsure what the problem might be. 
+
+    /*
+    The code below was added in an attempt to solve the issue with pictures
+    getting a 403 no access error. The code was found on stackoverflow. 
+    Link to form. https://stackoverflow.com/questions/6817595/remove-http-referer
+    I did not remove the referrer, but added a link to the API used. As they also
+    want users to to. But it does not seem to work as I intended at all times. 
+    It seem to work on my laptop and chrome, but not in safari. Then works again 
+    on gaming pc. In chrome i now get a 200 status, but in safari 403. unsure why,
+    but guess it got to do with cashed images.
+
+    */
+
     var meta = document.createElement('meta');
     meta.name = "referrer";
-    meta.content = "www.mangaeden.com";
+    meta.content = "https://www.mangaeden.com/api/";
     document.getElementsByTagName('head')[0].appendChild(meta);
     document.querySelector(".results").innerHTML = html;
   })

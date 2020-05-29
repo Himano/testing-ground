@@ -8,6 +8,7 @@ function validateForm(event) {
   event.preventDefault();
   console.log("Submitted");
 
+
   validateName();
   validateAnswer();
   validateEmailInput();
@@ -133,6 +134,7 @@ function validateForm(event) {
     } else {
       displayMissing();
     }
+
     function checkAnswer() {
       if (validateAnswer() === true) {
         checkEmail();
@@ -140,6 +142,7 @@ function validateForm(event) {
         displayMissing();
       }
     }
+
     function checkEmail() {
       if (validateEmailInput() === true) {
         checkAddress();
@@ -147,6 +150,7 @@ function validateForm(event) {
         displayMissing();
       }
     }
+
     function checkAddress() {
       if (validateAddress() === true) {
         displaySuccessMessage();
@@ -162,6 +166,7 @@ function validateForm(event) {
 
       successDiv.innerHTML = html;
     }
+
     function displaySuccessMessage() {
       let html = "";
 
